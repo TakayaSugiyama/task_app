@@ -4,8 +4,8 @@
 | カラム | データ型 |
 |:----:|:-----:|
 |id| integer|
-| task_title | string |
-| task_content |text |
+| title | string |
+| content |text |
 | status | string |
 | deadline | datetime |
 | priority | string |
