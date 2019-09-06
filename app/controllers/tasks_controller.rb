@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show]
+  before_action :set_task, only: [:show,:edit,:update]
 
   def index
     @tasks = Task.all.order(updated_at: :desc)
@@ -11,8 +11,7 @@ class TasksController < ApplicationController
 
   def show ;end
 
-  def edit
-  end
+  def edit;end
 
   def create
     @task = Task.new(task_params)
@@ -27,6 +26,12 @@ class TasksController < ApplicationController
   end
 
   def update
+    if @task.update(task_params)
+      redirect_to @task, notice: "タスクを更新しました。"
+    else 
+      flash.now[:error_messages] =  @task.errors.full_messages
+      render "tasks/edit"
+    end
   end
 
   private 
