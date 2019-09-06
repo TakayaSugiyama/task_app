@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show,:edit,:update]
+  before_action :set_task, only: [:show,:edit,:update,:destroy]
 
   def index
     @tasks = Task.all.order(updated_at: :desc)
@@ -23,6 +23,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task.destroy 
+    redirect_to root_url, notice: "タスク「#{@task.title}」を削除しました"
   end
 
   def update
