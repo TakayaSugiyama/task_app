@@ -10,7 +10,6 @@
 | deadline | datetime |
 | priority | string |
 | user_id | references|
-| label | string |
 |created_at| timestamps|
 |updated_at| timestamps|
  
