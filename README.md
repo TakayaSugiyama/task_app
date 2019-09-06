@@ -21,7 +21,6 @@
 | name | string |
 | email |string |
 | password_digest | string |
-| label | string |
 |created_at| timestamps|
 |updated_at| timestamps| 
 
