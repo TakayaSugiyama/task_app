@@ -1,6 +1,5 @@
 <table>
-  <%= @tasks.each do |task| %>
-    <thead>
+   <thead>
       <tr>
         <th>タスク名</th>
         <th>タスク詳細</th>
@@ -9,14 +8,15 @@
         <th>削除</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>  
-        <td><%= task.title %></td>
-        <td><%= task.content %></td>
-        <td><%= link_to "詳細" ,taks_path(task) %>
-        <td><%= link_to "編集", edit_task_path(task) %>
-        <td><%= link_to "削除", task_path(task), method: :delete %>
-      </tr>
-    </tbody>
-  <% end %>
+    <% @tasks.each do |task| %>
+      <tbody>
+        <tr>  
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td><%= link_to "詳細" ,task_path(task) %>
+          <td><%= link_to "編集", edit_task_path(task) %>
+          <td><%= link_to "削除", task_path(task), method: :delete, data: {confirm: "本当に削除しますか ?"} %>
+        </tr>
+      </tbody>
+    <% end %>
 </table>
