@@ -12,7 +12,11 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク作成のテスト" do
-     
+     visit new_task_path 
+     fill_in "Title", with: "test_task"
+     fill_in "Content" ,with: "testtesttest"
+     click_button "Create Task"
+     expect(page).to  have_content "タスク「test_task」を作成しました"
   end
 
   scenario "タスク詳細のテスト" do
