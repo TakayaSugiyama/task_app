@@ -20,6 +20,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
-
+      task = FactoryBot.create(:task)
+      visit task_path(task.id)
+      expect(page).to have_content "testtesttest"
   end
 end
