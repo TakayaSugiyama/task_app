@@ -4,16 +4,19 @@
 
 ## 手順
 ```
- 1.  git pull  https://github.com/TakayaSugiyama/task_app.git 
+ 1. $ git pull  https://github.com/TakayaSugiyama/task_app.git 
 
- 2.  bundle install
+ 2. $ cd  task_app
 
- 3.  rails db:create 
+ 3. $ heroku login -i 
+ 
+ 4. $ heroku create 
 
- 4.  rails db:migrate
+ 5. $ git add .
 
- 5.  rails s
+ 6. $ git commit -m "push to Heroku"
 
+ 7. $ git push heroku master 
 ```
 
 ## heroku 
