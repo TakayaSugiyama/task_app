@@ -15,6 +15,9 @@ RSpec.feature "タスク管理機能", type: :feature do
      visit new_task_path 
      fill_in "タスク名", with: "test_task"
      fill_in "タスク詳細" ,with: "testtesttest"
+     select "2017" , from: "task_deadline_1i"
+     select "9" , from: "task_deadline_2i"
+     select "20" , from: "task_deadline_3i"
      click_button "登録する"
      expect(page).to  have_content "タスク「test_task」を作成しました"
   end
