@@ -34,5 +34,18 @@ RSpec.feature "タスク管理機能", type: :feature do
      expect(tasks[0].text).to have_content "task3"
      expect(tasks[1].text).to have_content "task2"
      expect(tasks[2].text).to have_content "task1"
+  end 
+
+  # タスクのソート機能のテスト 
+  scenario "一覧画面でソートのリンクを押されたとき、タスクがソートされているかのテスト" do 
+    task1 = FactoryBot.create(:task)
+    task2 = FactoryBot.create(:task,deadline: "2020-09-09 07:35:38")
+    task3 = FactoryBot.create(:task,deadline: "2050-09-09 07:35:38")
+    visit root_path
+    click_link "終了期限でソートする"
+    tasks = page.all(".task_deadline")
+    expect(tasks[0].text).to have_content "2019年 09月 09日"
+    expect(tasks[1].text).to have_content "2020年 09月 09日"
+    expect(tasks[2].text).to have_content "2050年 09月 09日"
   end
 end
