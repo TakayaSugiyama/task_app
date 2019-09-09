@@ -3,5 +3,6 @@
 <p><%= @task.title %></p>
 <p>タスク詳細</p>
 <p><%= @task.content %></p>
-
+<p>締め切り日</p>
+<p><%= @task.deadline.strftime("%Y年 %m月 %d日") %></p>
 <%= link_to "一覧へ", root_path %>
