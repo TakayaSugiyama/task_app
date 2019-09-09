@@ -1,3 +1,26 @@
+## 環境
+- Ruby 2.6.3 
+- Rails 5.2.3 
+
+## 手順
+```
+ 1.  git pull  https://github.com/TakayaSugiyama/task_app.git 
+
+ 2.  bundle install
+
+ 3.  rails db:create 
+
+ 4.  rails db:migrate
+
+ 5.  rails s
+
+```
+
+## heroku 
+
+  https://task-app-manyo.herokuapp.com/
+
+
 ## テーブルの構造 
 
 ### tasksテーブル   task_model
