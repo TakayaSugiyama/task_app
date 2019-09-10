@@ -50,10 +50,11 @@ class TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:task).permit(:title,:content,:deadline,:priority)
+    params.require(:task).permit(:title,:content,:deadline,:priority,:condition)
   end
 
   def set_options 
-    @options = Task.priorities.keys 
+    @options_priority = Task.priorities.keys 
+    @options_condition = Task.conditions.keys
   end 
 end

@@ -14,8 +14,13 @@
    <p>
    <p>
       <%= f.label :priority %><br/>
-      <%= f.select :priority ,@options %>
+      <%= f.select :priority ,@options_priority %>
    </p>
+   <p>
+      <%= f.label :condition %><br/>
+      <%= f.select :condition ,@options_condition %>
+   </p>
+
    <%= f.submit  %>
 <% end %>
  <%= link_to "戻る", root_path %>
