@@ -7,4 +7,6 @@
 <p><%= @task.deadline.strftime("%Y年 %m月 %d日") %></p>
 <p>優先順位</p>
 <p><%= @task.priority %></p>
+<p>進捗</p>
+<p><%= @task.condition %></p>
 <%= link_to "一覧へ", root_path %>
