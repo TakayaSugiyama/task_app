@@ -17,6 +17,7 @@ RSpec.feature "タスク管理機能", type: :feature do
      select "9" , from: "task_deadline_2i"
      select "20" , from: "task_deadline_3i"
      select  "最優先", from: "task_priority"
+     select "未着手", from: "task_condition"
      click_button "登録する"
      expect(page).to  have_content "タスク「test_task」を作成しました"
   end
@@ -62,5 +63,18 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(tasks[0].text).to have_content "最優先"
     expect(tasks[1].text).to have_content "普通"
     expect(tasks[2].text).to have_content "後回し"
+  end
+
+  #タスク検索のテスト 
+  scenario "一覧画面でタイトルを「test_task」、進捗を未着手とすると検索結果が表示されるかのテスト" do
+    task1 = FactoryBot.create(:task)
+    task2 = FactoryBot.create(:task,title: "test_task2")
+    task3 = FactoryBot.create(:task,title: "test_task3")
+    visit root_path 
+    fill_in "タスク名", with: "test_task3"
+    select "未着手", from: "q_condition_eq"
+    click_button "検索"
+    tasks = page.all(".task_title")
+    expect(tasks[0].text).to have_content "test_task3"
   end
 end

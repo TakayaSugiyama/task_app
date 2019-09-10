@@ -1,5 +1,5 @@
 <%= search_form_for @q ,url: root_path do |f| %>
-    <%= f.label :title_cont, "タイトル" %><br/>
+    <%= f.label :title_cont, "タスク名" %><br/>
     <%= f.search_field :title_cont %><br/>
     <%= f.label :condition_eq, "進捗" %><br/>
     <%= f.select :condition_eq, Task.conditions.map { |k,v| [Task.conditions_i18n[k], v] } %><br/>

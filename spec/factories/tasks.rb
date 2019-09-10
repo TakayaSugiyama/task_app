@@ -4,5 +4,6 @@ FactoryBot.define do
     content {"testtesttest"}
     deadline {"2019-09-09 07:35:38"}
     priority {"普通"}
+    condition {"todo"}  #未着手
   end
 end
