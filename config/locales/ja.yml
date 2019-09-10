@@ -212,6 +212,7 @@ ja:
           content: タスク詳細
           deadline: 締め切り日
           priority: 優先順位
+          condition: 進捗
   enums:
     task:
       condition:

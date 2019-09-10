@@ -8,5 +8,5 @@
 <p>優先順位</p>
 <p><%= @task.priority %></p>
 <p>進捗</p>
-<p><%= @task.condition %></p>
+<p><%= Task.conditions_i18n[@task.condition] %></p>
 <%= link_to "一覧へ", root_path %>
