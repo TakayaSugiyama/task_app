@@ -32,7 +32,7 @@
 |id| integer|
 | title | string |
 | content |text |
-| status | integer |
+| condition | integer |
 | deadline | datetime |
 | priority | integer |
 | user_id | references|
