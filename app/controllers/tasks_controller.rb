@@ -48,7 +48,7 @@ class TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:task).permit(:title,:content,:deadline)
+    params.require(:task).permit(:title,:content,:deadline,:status)
   end
 
   def set_options 
