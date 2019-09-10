@@ -16,7 +16,7 @@ RSpec.feature "タスク管理機能", type: :feature do
      select "2017" , from: "task_deadline_1i"
      select "9" , from: "task_deadline_2i"
      select "20" , from: "task_deadline_3i"
-     select  "最優先", from: "task_status"
+     select  "最優先", from: "task_priority"
      click_button "登録する"
      expect(page).to  have_content "タスク「test_task」を作成しました"
   end
@@ -54,8 +54,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   #優先順位のソート機能のテスト 
   scenario "一覧画面で優先順位のソートのリンクを押されたとき、タスクがソートされているかのテスト" do 
     task1 = FactoryBot.create(:task)
-    task2 = FactoryBot.create(:task,status: "最優先")
-    task3 = FactoryBot.create(:task,status: "後回し")
+    task2 = FactoryBot.create(:task,priority: "最優先")
+    task3 = FactoryBot.create(:task,priority: "後回し")
     visit root_path
     click_link "優先順位でソートする"
     tasks = page.all(".task_priority")
