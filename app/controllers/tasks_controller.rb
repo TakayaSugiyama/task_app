@@ -3,8 +3,10 @@ class TasksController < ApplicationController
   before_action :set_options, only: [:edit,:new]
 
   def index
-    if params[:name]
+    if params[:sort]
       @tasks = Task.all.order(:deadline)
+    elsif params[:status]
+      @tasks = Task.all.order(:status)
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -53,5 +55,5 @@ class TasksController < ApplicationController
 
   def set_options 
     @options = Task.statuses.keys 
-  end
+  end 
 end

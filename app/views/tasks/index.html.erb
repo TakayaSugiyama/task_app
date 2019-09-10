@@ -25,9 +25,12 @@
     <% end %>
 </table>
  <%= link_to "タスク作成へ", new_task_path %>
+
  <%= form_with(local: true, method: :get) do %>
-    <%= link_to  "終了期限でソートする" , name: "sort"%>
+    <%= link_to  "終了期限でソートする" , sort: true %><br/>
+    <%= link_to  "優先順位でソートする" , status: true %>
  <% end %>
- <% if params[:name] %>
+
+ <% if params[:sort] || params[:status] %>
     <%= link_to "元に戻す", root_path %>
  <% end %>
