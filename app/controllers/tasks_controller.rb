@@ -1,9 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
+  before_action :set_options, only: [:edit,:new]
 
   def index
-    if params[:name]
+    if params[:sort]
       @tasks = Task.all.order(:deadline)
+    elsif params[:priority]
+      @tasks = Task.all.order(:priority)
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -47,6 +50,10 @@ class TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:task).permit(:title,:content,:deadline)
+    params.require(:task).permit(:title,:content,:deadline,:priority)
   end
+
+  def set_options 
+    @options = Task.priorities.keys 
+  end 
 end
