@@ -32,9 +32,9 @@
 |id| integer|
 | title | string |
 | content |text |
-| status | string |
+| status | integer |
 | deadline | datetime |
-| priority | string |
+| priority | integer |
 | user_id | references|
 |created_at| timestamps|
 |updated_at| timestamps|
