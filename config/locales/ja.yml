@@ -212,3 +212,9 @@ ja:
           content: タスク詳細
           deadline: 締め切り日
           priority: 優先順位
+  enums:
+    task:
+      condition:
+        todo: 未着手
+        doing: 着手中 
+        done: 完了

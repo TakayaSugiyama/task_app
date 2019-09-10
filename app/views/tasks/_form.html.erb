@@ -18,7 +18,7 @@
    </p>
    <p>
       <%= f.label :condition %><br/>
-      <%= f.select :condition ,@options_condition %>
+      <%= f.select :condition ,Task.conditions_i18n.values %>
    </p>
 
    <%= f.submit  %>

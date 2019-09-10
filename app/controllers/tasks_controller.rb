@@ -3,12 +3,15 @@ class TasksController < ApplicationController
   before_action :set_options, only: [:edit,:new]
 
   def index
+    @tasks = Task.all.order(created_at: :desc)
+    @q = Task.ransack
     if params[:sort]
       @tasks = Task.all.order(:deadline)
     elsif params[:priority]
       @tasks = Task.all.order(:priority)
-    else
-      @tasks = Task.all.order(created_at: :desc)
+    elsif params[:q]
+      @q = Task.ransack(params[:q])
+      @tasks = @q.result(distinct: true)
     end
   end
 
