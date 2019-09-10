@@ -211,3 +211,4 @@ ja:
           title: タスク名
           content: タスク詳細
           deadline: 締め切り日
+          status: 優先順位
