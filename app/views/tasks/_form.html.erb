@@ -12,6 +12,10 @@
       <%= f.label :deadline %><br/>
       <%= f.date_select :deadline %>
    <p>
+   <p>
+      <%= f.label :status %><br/>
+      <%= f.select :status ,@options %>
+   </p>
    <%= f.submit  %>
 <% end %>
  <%= link_to "戻る", root_path %>

@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
+  before_action :set_options, only: [:edit,:new]
 
   def index
     if params[:name]
@@ -48,5 +49,9 @@ class TasksController < ApplicationController
 
   def task_params 
     params.require(:task).permit(:title,:content,:deadline)
+  end
+
+  def set_options 
+    @options = Task.statuses.keys 
   end
 end
