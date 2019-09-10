@@ -5,8 +5,8 @@ class TasksController < ApplicationController
   def index
     if params[:sort]
       @tasks = Task.all.order(:deadline)
-    elsif params[:status]
-      @tasks = Task.all.order(:status)
+    elsif params[:priority]
+      @tasks = Task.all.order(:priority)
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -50,10 +50,10 @@ class TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:task).permit(:title,:content,:deadline,:status)
+    params.require(:task).permit(:title,:content,:deadline,:priority)
   end
 
   def set_options 
-    @options = Task.statuses.keys 
+    @options = Task.priorities.keys 
   end 
 end
