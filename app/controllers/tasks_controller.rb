@@ -55,5 +55,11 @@ class TasksController < ApplicationController
   def task_params 
     params.require(:task).permit(:title,:content,:deadline,:priority,:condition)
   end
+
+  def only_my_task 
+    if @task.user == current_user 
+      redirect_to root_url, notice: "権限がありません"
+    end
+  end
   
 end

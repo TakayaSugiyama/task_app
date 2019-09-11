@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def forbid_login_user 
     if current_user 
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user),notice: "ログインしています。"
     end
   end
 end
