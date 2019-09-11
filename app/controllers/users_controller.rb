@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
+  before_action :only_mypage_user, only: [:show]
   def new
     @user = User.new(flash[:user])
   end
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def only_mypage_user 
-    unless @user.id == current_user.id 
+    if  @user.id != current_user.id 
       redirect_to user_path(current_user),notice: "権限がありません"
     end
   end
