@@ -14,8 +14,13 @@
    <p>
    <p>
       <%= f.label :priority %><br/>
-      <%= f.select :priority ,@options %>
+      <%= f.select :priority ,Task.priorities.map {|k,v| [Task.priorities_i18n[k],k]} %>
    </p>
+   <p>
+      <%= f.label :condition %><br/>
+      <%= f.select :condition ,Task.conditions.map { |k,v| [Task.conditions_i18n[k], k] } %>
+   </p>
+
    <%= f.submit  %>
 <% end %>
  <%= link_to "戻る", root_path %>

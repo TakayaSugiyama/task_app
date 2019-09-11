@@ -24,4 +24,21 @@ RSpec.describe Task, type: :model do
     task.valid?
     expect(task.errors[:content]).to  include "は100文字以内で入力してください"
   end
+
+  #検索 
+  describe "検索のテスト" do 
+    before do 
+      @task1 = FactoryBot.create(:task)
+      @task2 = FactoryBot.create(:task, title: "test_task2", condition: 3)  #condition  3:完了
+      @task3 = FactoryBot.create(:task, title: "test_task3")
+    end
+
+    it "タスク名の検索が帰ってくる" do 
+      expect(Task.ransack(title_eq: "test_task3").result).to include(@task3)
+    end 
+
+    it "タスク名を入力せずに検索すると値が帰ってくる" do 
+      expect(Task.ransack(condition_eq: 3).result).to include(@task2)
+    end
+  end
 end

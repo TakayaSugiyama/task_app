@@ -1,3 +1,12 @@
+<%= search_form_for @q ,url: root_path do |f| %>
+    <%= f.label :title_cont, "タスク名" %><br/>
+    <%= f.search_field :title_cont %><br/>
+    <%= f.label :condition_eq, "進捗" %><br/>
+    <%= f.select :condition_eq, Task.conditions.map { |k,v| [Task.conditions_i18n[k], v] } %><br/>
+    <%= f.hidden_field :search, value: 'true' %>
+    <%= f.submit %>
+<% end %>
+
 <table>
    <thead>
       <tr>
@@ -5,6 +14,7 @@
         <th>タスク詳細</th>
         <th>締め切り日</th>
         <th>優先順位</th>
+        <th>進捗</th>
         <th>詳細</th>
         <th>編集</th>
         <th>削除</th>
@@ -16,7 +26,8 @@
           <td class = "task_title"><%= task.title %></td>
           <td><%= task.content %></td>
           <td class = "task_deadline"><%= task.deadline.strftime("%Y年 %m月 %d日") %></td>
-          <td class = "task_priority"><%= task.priority %></td>
+          <td class = "task_priority"><%= Task.priorities_i18n[task.priority] %></td>
+          <td class = "task_condition"><%= Task.conditions_i18n[task.condition] %></td>
           <td><%= link_to "詳細" ,task_path(task) %>
           <td><%= link_to "編集", edit_task_path(task) %>
           <td><%= link_to "削除", task_path(task), method: :delete, data: {confirm: "本当に削除しますか ?"} %>
@@ -31,6 +42,6 @@
     <%= link_to  "優先順位でソートする" , priority: true %>
  <% end %>
 
- <% if params[:sort] || params[:priority] %>
+ <% if params[:sort] || params[:priority] || params[:q] %>
     <%= link_to "元に戻す", root_path %>
  <% end %>
