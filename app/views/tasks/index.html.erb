@@ -35,6 +35,7 @@
       </tbody>
     <% end %>
 </table>
+<%= paginate @tasks %>
  <%= link_to "タスク作成へ", new_task_path %>
 
  <%= form_with(local: true, method: :get) do %>
