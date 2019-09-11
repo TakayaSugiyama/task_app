@@ -11,4 +11,6 @@ class Task < ApplicationRecord
   def self.restricted_conditions
     conditionss.except :failed, :destroyed
   end
+
+  belongs_to :user
 end
