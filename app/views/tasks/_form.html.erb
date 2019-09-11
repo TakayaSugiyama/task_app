@@ -14,7 +14,7 @@
    <p>
    <p>
       <%= f.label :priority %><br/>
-      <%= f.select :priority ,@options_priority %>
+      <%= f.select :priority ,Task.priorities.map {|k,v| [Task.priorities_i18n[k],k]} %>
    </p>
    <p>
       <%= f.label :condition %><br/>

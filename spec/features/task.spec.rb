@@ -55,8 +55,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   #優先順位のソート機能のテスト 
   scenario "一覧画面で優先順位のソートのリンクを押されたとき、タスクがソートされているかのテスト" do 
     task1 = FactoryBot.create(:task)
-    task2 = FactoryBot.create(:task,priority: "最優先")
-    task3 = FactoryBot.create(:task,priority: "後回し")
+    task2 = FactoryBot.create(:task,priority: 0)
+    task3 = FactoryBot.create(:task,priority: 3)
     visit root_path
     click_link "優先順位でソートする"
     tasks = page.all(".task_priority")

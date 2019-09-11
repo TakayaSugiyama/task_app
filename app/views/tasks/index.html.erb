@@ -26,7 +26,7 @@
           <td class = "task_title"><%= task.title %></td>
           <td><%= task.content %></td>
           <td class = "task_deadline"><%= task.deadline.strftime("%Y年 %m月 %d日") %></td>
-          <td class = "task_priority"><%= task.priority %></td>
+          <td class = "task_priority"><%= Task.priorities_i18n[task.priority] %></td>
           <td class = "task_condition"><%= Task.conditions_i18n[task.condition] %></td>
           <td><%= link_to "詳細" ,task_path(task) %>
           <td><%= link_to "編集", edit_task_path(task) %>

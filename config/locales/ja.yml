@@ -219,3 +219,8 @@ ja:
         todo: 未着手
         doing: 着手中 
         done: 完了
+      priority:
+        highpriority: 最優先
+        priority: 優先
+        normal: 普通
+        later: 後回し
