@@ -1,26 +1,28 @@
-<%= form_with(model: task, local: true) do |f| %>
-   <%= render "shared/error_messages"%>
-   <p>
-      <%= f.label :title %><br/>
-      <%= f.text_field :title %>
-   </p>
-   <p>
-      <%= f.label :content %><br/>
-      <%= f.text_area :content, rows: 4 %>
-   </p>
-   <p>
-      <%= f.label :deadline %><br/>
-      <%= f.date_select :deadline %>
-   <p>
-   <p>
-      <%= f.label :priority %><br/>
-      <%= f.select :priority ,Task.priorities.map {|k,v| [Task.priorities_i18n[k],k]} %>
-   </p>
-   <p>
-      <%= f.label :condition %><br/>
-      <%= f.select :condition ,Task.conditions.map { |k,v| [Task.conditions_i18n[k], k] } %>
-   </p>
+<div class = "text-center">
+   <%= form_with(model: task, local: true) do |f| %>
+      <%= render "shared/error_messages"%>
+      <p>
+         <%= f.label :title %><br/>
+         <%= f.text_field :title %>
+      </p>
+      <p>
+         <%= f.label :content %><br/>
+         <%= f.text_area :content, rows: 4 %>
+      </p>
+      <p>
+         <%= f.label :deadline %><br/>
+         <%= f.date_select :deadline %>
+      <p>
+      <p>
+         <%= f.label :priority %><br/>
+         <%= f.select :priority ,Task.priorities.map {|k,v| [Task.priorities_i18n[k],k]} %>
+      </p>
+      <p>
+         <%= f.label :condition %><br/>
+         <%= f.select :condition ,Task.conditions.map { |k,v| [Task.conditions_i18n[k], k] } %>
+      </p>
 
-   <%= f.submit  %>
-<% end %>
- <%= link_to "戻る", root_path %>
+      <%= f.submit class: "btn btn-primary" %>
+   <% end %>
+   <%= link_to "戻る", root_path %>
+</div>
