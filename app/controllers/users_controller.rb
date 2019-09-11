@@ -24,4 +24,10 @@ class UsersController < ApplicationController
   def user_params 
     params.require(:user).permit(:name,:password,:password_confirmation,:email)
   end
+
+  def only_mypage_user 
+    unless @user.id == current_user.id 
+      redirect_to user_path(current_user),notice: "権限がありません"
+    end
+  end
 end

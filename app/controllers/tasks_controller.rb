@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show,:edit,:update,:destroy]
+  before_action :set_task, only: [:show,:edit,:update,:destroy] 
+  before_action :forbit_not_login_user
 
   def index
     @tasks = Task.all.order(created_at: :desc).page(params[:page])
