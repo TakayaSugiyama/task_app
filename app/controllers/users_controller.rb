@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
   before_action :only_mypage_user, only: [:show]
+  before_action :forbid_login_user, only: [:new]
   def new
     @user = User.new(flash[:user])
   end
@@ -30,6 +31,12 @@ class UsersController < ApplicationController
   def only_mypage_user 
     if  @user.id != current_user.id 
       redirect_to user_path(current_user),notice: "権限がありません"
+    end
+  end
+
+  def forbid_login_user 
+    if current_user 
+      redirect_to user_path(current_user)
     end
   end
 end
