@@ -224,3 +224,10 @@ ja:
         priority: 優先
         normal: 普通
         later: 後回し
+  views: 
+    pagenation:
+      first: 先頭
+      last: 末尾
+      previous: 前
+      next: 次
+      truncate: "..." 
