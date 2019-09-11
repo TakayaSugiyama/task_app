@@ -24,9 +24,8 @@ class TasksController < ApplicationController
   def edit;end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save 
-      session[:user_id] = @user.id
       redirect_to @task, notice: "タスク「#{@task.title}」を作成しました"
     else 
       redirect_to new_task_path, flash: {task: @task, error_messages: @task.errors.full_messages}
