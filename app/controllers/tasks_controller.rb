@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy]
-  before_action :set_options, only: [:edit,:new]
 
   def index
     @tasks = Task.all.order(created_at: :desc).page(params[:page])
@@ -55,9 +54,5 @@ class TasksController < ApplicationController
   def task_params 
     params.require(:task).permit(:title,:content,:deadline,:priority,:condition)
   end
-
-  def set_options 
-    @options_priority = Task.priorities.keys 
-    @options_condition = Task.conditions.keys
-  end 
+  
 end

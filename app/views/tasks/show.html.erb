@@ -1,12 +1,14 @@
-<h1>詳細</h1>
-<p>タスク名</p>
-<p><%= @task.title %></p>
-<p>タスク詳細</p>
-<p><%= @task.content %></p>
-<p>締め切り日</p>
-<p><%= @task.deadline.strftime("%Y年 %m月 %d日") %></p>
-<p>優先順位</p>
-<p><%= Task.priorities_i18n[@task.priority] %></p>
-<p>進捗</p>
-<p><%= Task.conditions_i18n[@task.condition] %></p>
-<%= link_to "一覧へ", root_path %>
+<div class = "text-center">
+  <h1>詳細</h1>
+  <h3>タスク名</h3>
+  <p><%= @task.title %></p>
+  <h3>タスク詳細</h3>
+  <p><%= @task.content %></p>
+  <h3>締め切り日</h3>
+  <p><%= @task.deadline.strftime("%Y年 %m月 %d日") %></p>
+  <h3>優先順位</h3>
+  <p><%= Task.priorities_i18n[@task.priority] %></p>
+  <h3>進捗</h3>
+  <p><%= Task.conditions_i18n[@task.condition] %></p>
+  <%= link_to "一覧へ", root_path %>
+</div>
