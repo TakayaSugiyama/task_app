@@ -20,8 +20,19 @@ RSpec.feature "Users", type: :feature do
     fill_in "パスワード(確認)", with: "relaxbear"
     click_button "登録する"
     expect(page).to have_content "メールアドレスはすでに存在します"
+  end 
+
+  scenario "パスワードを6文字未満で登録しようとするとエラー" do
+    visit new_user_path 
+    fill_in "ユーザー名" , with: "コリックマ"
+    fill_in "メールアドレス", with: "relaxbear@gmail.com"
+    fill_in "パスワード", with: "relax"
+    fill_in "パスワード(確認)", with: "relax"
+    click_button "登録する"
+    expect(page).to have_content "パスワードは6文字以上で入力してください"
   end
 
+  
   
 
 end
