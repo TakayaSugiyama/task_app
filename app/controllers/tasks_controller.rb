@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show,:edit,:update,:destroy] 
   before_action :forbit_not_login_user
+  before_action :only_my_task, only: [:show,:update,:edit,:destroy]
 
   def index
     @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
@@ -57,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def only_my_task 
-    if @task.user == current_user 
+    if @task.user != current_user 
       redirect_to root_url, notice: "権限がありません"
     end
   end
