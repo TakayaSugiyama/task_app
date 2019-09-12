@@ -32,7 +32,44 @@ RSpec.feature "Users", type: :feature do
     expect(page).to have_content "パスワードは6文字以上で入力してください"
   end
 
-  
-  
+  scenario  "ログインに失敗する"  do 
+    user = FactoryBot.create(:user)
+    visit login_path 
+    fill_in "メールアドレス" ,with: "koribear@gmail.com"
+    fill_in "パスワード", with: "koribear"
+    click_button "ログインする"
+    expect(page).to have_content "ログインに失敗しました"
+  end
+
+  describe "ログイン後に使える機能" do 
+    before  "ログイン" do  
+      @user = FactoryBot.create(:user)
+      visit login_path 
+      fill_in "メールアドレス" ,with: "relaxbear@gmail.com"
+      fill_in "パスワード", with: "relaxbear"
+      click_button "ログインする"
+    end
+
+    it "正しくログインできる" do
+      expect(page).to have_content "ログインしました"
+    end
+
+    it "正しくログアウトできる" do 
+      click_link "ログアウト"
+      expect(page).to  have_content "ログアウトしました"
+    end
+
+    it "ログインユーザーは新規登録ページにアクセスできない" do
+       visit new_user_path 
+       expect(page).to have_content "ログインしています"
+    end
+
+    it "他の人のマイページにアクセスできない" do 
+      user = FactoryBot.create(:user,id:2, email: "kori@gmail.com")
+      visit  user_path(user)
+      expect(page).to have_content "権限がありません"
+    end
+
+  end
 
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "タスク管理機能", type: :feature do
+RSpec.feature "Tasks", type: :feature do
   describe "タスク管理機能"  do 
       before  "ログイン" do  
         @user = FactoryBot.create(:user)

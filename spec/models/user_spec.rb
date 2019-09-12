@@ -32,6 +32,4 @@ RSpec.describe User, type: :model do
     user.valid? 
     expect(user.errors[:email]).to include "は不正な値です" 
   end
-
-
 end
