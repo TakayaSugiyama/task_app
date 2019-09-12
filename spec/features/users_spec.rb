@@ -14,7 +14,7 @@ RSpec.feature "Users", type: :feature do
   scenario "既に登録されたメールアドレスで登録しようとするとエラー" do 
     FactoryBot.create(:user)
     visit new_user_path 
-    fill_in "ユーザー名" , with: "コリックマ"
+    fill_in "ユーザー名" , with: "コリラックマ"
     fill_in "メールアドレス", with: "relaxbear@gmail.com"
     fill_in "パスワード", with: "relaxbear"
     fill_in "パスワード(確認)", with: "relaxbear"
@@ -24,7 +24,7 @@ RSpec.feature "Users", type: :feature do
 
   scenario "パスワードを6文字未満で登録しようとするとエラー" do
     visit new_user_path 
-    fill_in "ユーザー名" , with: "コリックマ"
+    fill_in "ユーザー名" , with: "コリラックマ"
     fill_in "メールアドレス", with: "relaxbear@gmail.com"
     fill_in "パスワード", with: "relax"
     fill_in "パスワード(確認)", with: "relax"
