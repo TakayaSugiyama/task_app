@@ -41,6 +41,11 @@ RSpec.feature "Users", type: :feature do
     expect(page).to have_content "ログインに失敗しました"
   end
 
+  scenario "非ログインユーザーがタスクのページに飛ぼうとした場合は、ログインページに遷移" do 
+    visit root_path 
+    expect(page).to have_content "ログインしてください"
+  end
+
   describe "ログイン後に使える機能" do 
     before  "ログイン" do  
       @user = FactoryBot.create(:user)
