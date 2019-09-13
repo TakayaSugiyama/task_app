@@ -4,6 +4,7 @@ class Admin::UsersController < ApplicationController
   skip_before_action :forbid_login_user, if: proc { params[:admin] }
   before_action :set_user, only: %i(show destroy edit update)
   before_action :only_mypage_user, only: [:show]
+  skip_before_action :only_mypage_user, if: proc { params[:admin] }
   
 
   def new
@@ -16,7 +17,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy 
     @user.destroy
-    redirect_to  admin_users_path, notice: "削除しました"
+    redirect_to  admin_users_path, notice: "「#{@user.name}」を削除しました"
   end
 
   def create
@@ -31,7 +32,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def show;end
+
   def edkt;end
+
   def update 
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "更新しました"
