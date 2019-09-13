@@ -1,0 +1,12 @@
+<h1>ログイン</h1>
+<div class = "col-6">
+  <%= form_with(local: true, scope: :session) do |f| %>
+    <%= f.label :email ,"メールアドレス" %>
+    <%= f.text_field :email ,class: "form-control"%>
+    <%= f.label :password , "パスワード"%>
+    <%= f.password_field :password  ,class: "form-control"%>
+    <div class = "text-center mt-3">
+       <%= f.submit  "ログインする",class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

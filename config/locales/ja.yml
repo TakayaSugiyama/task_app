@@ -213,6 +213,13 @@ ja:
           deadline: 締め切り日
           priority: 優先順位
           condition: 進捗
+          created_at: 制作日時
+          updated_at: 更新日時
+        user: 
+          name: ユーザー名
+          email: メールアドレス
+          password: パスワード
+          password_confirmation: パスワード(確認)
   enums:
     task:
       condition:
@@ -231,3 +238,4 @@ ja:
       previous: 前
       next: 次
       truncate: "..." 
+    

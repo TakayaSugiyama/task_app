@@ -1,15 +1,17 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show,:edit,:update,:destroy]
+  before_action :set_task, only: [:show,:edit,:update,:destroy] 
+  before_action :forbit_not_login_user
+  before_action :only_my_task, only: [:show,:update,:edit,:destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
     @q = Task.ransack
     if params[:sort]
-      @tasks = Task.all.order(:deadline).page(params[:page])
+      @tasks = current_user.tasks.order(:deadline).page(params[:page])
     elsif params[:priority]
-      @tasks = Task.all.order(:priority).page(params[:page])
+      @tasks = current_user.tasks.order(:priority).page(params[:page])
     elsif params[:q]
-      @q = Task.ransack(params[:q])
+      @q = current_user.tasks.ransack(params[:q])
       @tasks = @q.result(distinct: true).page(params[:page])
     end
   end
@@ -23,7 +25,7 @@ class TasksController < ApplicationController
   def edit;end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save 
       redirect_to @task, notice: "タスク「#{@task.title}」を作成しました"
     else 
@@ -53,6 +55,12 @@ class TasksController < ApplicationController
 
   def task_params 
     params.require(:task).permit(:title,:content,:deadline,:priority,:condition)
+  end
+
+  def only_my_task 
+    if @task.user != current_user 
+      redirect_to root_url, notice: "権限がありません"
+    end
   end
   
 end

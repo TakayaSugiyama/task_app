@@ -14,6 +14,7 @@ RSpec.describe Task, type: :model do
   end 
 
   it "titleとcontentに内容が記載されていればバリデーションを通る" do
+    user = FactoryBot.create(:user)
     task = FactoryBot.create(:task)
     expect(task).to be_valid
   end
@@ -28,6 +29,7 @@ RSpec.describe Task, type: :model do
   #検索 
   describe "検索のテスト" do 
     before do 
+      @user = FactoryBot.create(:user)
       @task1 = FactoryBot.create(:task)
       @task2 = FactoryBot.create(:task, title: "test_task2", condition: 3)  #condition  3:完了
       @task3 = FactoryBot.create(:task, title: "test_task3")
