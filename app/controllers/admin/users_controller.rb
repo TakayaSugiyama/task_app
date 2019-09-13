@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
   before_action :forbid_login_user, only: [:new]
   skip_before_action :forbid_login_user, if: proc { params[:admin] }
-  before_action :set_user, only: %i(show destroy)
+  before_action :set_user, only: %i(show destroy edit update)
   before_action :only_mypage_user, only: [:show]
   
 
@@ -31,6 +31,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def show;end
+  def edkt;end
+  def update 
+    if @user.update(user_params)
+      redirect_to admin_user_path(@user), notice: "更新しました"
+    else 
+      redirect_to edit_admin_user_path(@user), flash: {error_messages: @user.errors.full_messages}
+    end
+  end
 
   private 
 
