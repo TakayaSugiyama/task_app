@@ -1,3 +1,5 @@
 <h1><%= @user.name %>のページ</h1>
-<%= link_to "ログアウト", logout_path , method: :delete %>
-<%= link_to "タスク一覧へ", root_path %>
+<% if  @user == current_user %>
+  <%= link_to "ログアウト", logout_path , method: :delete %>
+  <%= link_to "タスク一覧へ", root_path %>
+<% end %>
