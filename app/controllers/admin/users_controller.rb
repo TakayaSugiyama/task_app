@@ -1,10 +1,22 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show]
   before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
-  before_action :only_mypage_user, only: [:show]
   before_action :forbid_login_user, only: [:new]
+  skip_before_action :forbid_login_user, if: proc { params[:admin] }
+  before_action :set_user, only: %i(show destroy)
+  before_action :only_mypage_user, only: [:show]
+  
+
   def new
     @user = User.new(flash[:user])
+  end
+
+  def index 
+    @users = User.all.select(:id,:name)
+  end
+
+  def destroy 
+    @user.destroy
+    redirect_to  admin_users_path, notice: "削除しました"
   end
 
   def create
@@ -13,7 +25,8 @@ class Admin::UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to admin_user_path(@user),notice: "登録しました"
     else 
-      redirect_to new_admin_user_path, flash: {user: @user,error_messages:@user.errors.full_messages}
+      flash.now[:error_messages] = @user.errors.full_messages
+      render "admin/users/new"
     end
   end
 
@@ -36,7 +49,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def forbid_login_user 
-    if current_user 
+    if current_user
       redirect_to admin_user_path(current_user),notice: "ログインしています。"
     end
   end
