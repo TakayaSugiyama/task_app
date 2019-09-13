@@ -1,5 +1,6 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show]
+  before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
   before_action :only_mypage_user, only: [:show]
   before_action :forbid_login_user, only: [:new]
   def new
