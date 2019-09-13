@@ -45,6 +45,7 @@
 |id|integer|
 | name | string |
 | email |string |
+| admin | boolean |
 | password_digest | string |
 |created_at| timestamps|
 |updated_at| timestamps| 
