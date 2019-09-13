@@ -5,7 +5,7 @@ class AddNilFalseToUserId < ActiveRecord::Migration[5.2]
   end
 
   def down 
-    change_column_null :users, :user_id, ture, nil 
+    change_column_null :users, :user_id, true, nil 
     change_column      :users, :user_id, :bigint, default: nil
   end
 end
