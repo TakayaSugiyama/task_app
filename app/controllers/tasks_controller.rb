@@ -4,14 +4,20 @@ class TasksController < ApplicationController
   before_action :only_my_task, only: [:show,:update,:edit,:destroy]
 
   def index
-    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
+    if params[:user]
+      @user = User.find(params[:user])
+    else 
+      @user = current_user
+    end
+    
+    @tasks = @user.tasks.order(created_at: :desc).page(params[:page])
     @q = Task.ransack
     if params[:sort]
-      @tasks = current_user.tasks.order(:deadline).page(params[:page])
+      @tasks = @user.tasks.order(:deadline).page(params[:page])
     elsif params[:priority]
-      @tasks = current_user.tasks.order(:priority).page(params[:page])
+      @tasks = @user.tasks.order(:priority).page(params[:page])
     elsif params[:q]
-      @q = current_user.tasks.ransack(params[:q])
+      @q = @user.tasks.ransack(params[:q])
       @tasks = @q.result(distinct: true).page(params[:page])
     end
   end

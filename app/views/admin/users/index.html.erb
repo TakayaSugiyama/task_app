@@ -28,7 +28,10 @@
          <%= link_to "削除", admin_user_path(user), method: :delete, data: {confirm: "削除しますか?"} , class: "btn btn-danger" %>
       </td>
       <td>
-        <%= link_to "一覧", root_path, class: "btn btn-success"%>
+         <%= form_with(local: true, method: :get, url: root_url) do  |f| %>
+          <%= f.hidden_field :user , value: "#{user.id}" %>
+          <button class = "btn btn-success">一覧</button>
+         <% end %>
       </td>
     </tr>
   <% end %>
