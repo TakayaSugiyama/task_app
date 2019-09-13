@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index 
-    @users = User.all.select(:id,:name)
+    @users = User.all.select(:id,:name,:admin)
   end
 
   def destroy 
