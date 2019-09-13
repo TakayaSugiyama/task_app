@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
   before_action :forbid_login_user, only: [:new]
+  before_action :only_admin_user, only: %i(index)
   skip_before_action :forbid_login_user, if: proc { params[:admin] }
   before_action :set_user, only: %i(show destroy edit update)
   before_action :only_mypage_user, only: [:show]
@@ -62,6 +63,12 @@ class Admin::UsersController < ApplicationController
   def forbid_login_user 
     if current_user
       redirect_to admin_user_path(current_user),notice: "ログインしています。"
+    end
+  end
+
+  def only_admin_user 
+    unless  current_user.admin? 
+        redirect_to admin_user_path(current_user),notice: "管理者のみアクセスできます"
     end
   end
 end
