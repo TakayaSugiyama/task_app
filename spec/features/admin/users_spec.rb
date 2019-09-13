@@ -1,8 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature "Users", type: :feature do
+RSpec.feature "Admin::Users", type: :feature do
+  require 'rails_helper'
+
   scenario "ユーザー登録"  do 
-    visit new_user_path 
+    visit new_admin_user_path 
     fill_in "ユーザー名" , with: "リラックマ"
     fill_in "メールアドレス", with: "relaxbear@gmail.com"
     fill_in "パスワード", with: "relaxbear"
@@ -13,7 +15,7 @@ RSpec.feature "Users", type: :feature do
 
   scenario "既に登録されたメールアドレスで登録しようとするとエラー" do 
     FactoryBot.create(:user)
-    visit new_user_path 
+    visit new_admin_user_path 
     fill_in "ユーザー名" , with: "コリラックマ"
     fill_in "メールアドレス", with: "relaxbear@gmail.com"
     fill_in "パスワード", with: "relaxbear"
@@ -23,7 +25,7 @@ RSpec.feature "Users", type: :feature do
   end 
 
   scenario "パスワードを6文字未満で登録しようとするとエラー" do
-    visit new_user_path 
+    visit new_admin_user_path 
     fill_in "ユーザー名" , with: "コリラックマ"
     fill_in "メールアドレス", with: "relaxbear@gmail.com"
     fill_in "パスワード", with: "relax"
@@ -65,16 +67,17 @@ RSpec.feature "Users", type: :feature do
     end
 
     it "ログインユーザーは新規登録ページにアクセスできない" do
-       visit new_user_path 
+       visit new_admin_user_path 
        expect(page).to have_content "ログインしています"
     end
 
     it "他の人のマイページにアクセスできない" do 
       user = FactoryBot.create(:user,id:2, email: "kori@gmail.com")
-      visit  user_path(user)
+      visit  admin_user_path(user)
       expect(page).to have_content "権限がありません"
     end
 
   end
+
 
 end

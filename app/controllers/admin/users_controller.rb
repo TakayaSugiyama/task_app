@@ -11,9 +11,9 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save 
       session[:user_id] = @user.id
-      redirect_to @user,notice: "登録しました"
+      redirect_to admin_user_path(@user),notice: "登録しました"
     else 
-      redirect_to new_user_path, flash: {user: @user,error_messages:@user.errors.full_messages}
+      redirect_to new_admin_user_path, flash: {user: @user,error_messages:@user.errors.full_messages}
     end
   end
 
@@ -31,13 +31,13 @@ class Admin::UsersController < ApplicationController
 
   def only_mypage_user 
     if  @user.id != current_user.id 
-      redirect_to user_path(current_user),notice: "権限がありません"
+      redirect_to admin_user_path(current_user),notice: "権限がありません"
     end
   end
 
   def forbid_login_user 
     if current_user 
-      redirect_to user_path(current_user),notice: "ログインしています。"
+      redirect_to admin_user_path(current_user),notice: "ログインしています。"
     end
   end
 end
