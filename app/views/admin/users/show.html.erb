@@ -2,4 +2,7 @@
 <% if  @user == current_user %>
   <%= link_to "ログアウト", logout_path , method: :delete %>
   <%= link_to "タスク一覧へ", root_path %>
+  <% if current_user.admin? %>
+    <%= link_to "ユーザー管理画面へ", admin_users_path %>
+  <% end %>
 <% end %>
