@@ -3,10 +3,10 @@ class Admin::UsersController < ApplicationController
   before_action :forbid_login_user, only: [:new]
   before_action :only_admin_user, only: %i(index)
   skip_before_action :forbid_login_user, if: proc { params[:admin] }
-  before_action :set_user, only: %i(show destroy edit update)
+  before_action :set_user, only: %i(show destroy edit update remove add)
   before_action :only_mypage_user, only: [:show]
   skip_before_action :only_mypage_user, if: proc { params[:admin] }
-  before_action :delete_my_self, only: %i(destroy)
+  before_action :delete_my_self, only: %i(destroy, remove)
   
 
   def new
@@ -47,13 +47,11 @@ class Admin::UsersController < ApplicationController
   
 
   def  add
-    @user = User.find(params[:id])
     @user.update(admin: true)
     redirect_to admin_users_path
   end
 
   def remove 
-      @user = User.find(params[:id])
       if @user.update(admin: false)
          redirect_to admin_users_path
       end
