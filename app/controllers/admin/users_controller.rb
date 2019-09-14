@@ -43,6 +43,19 @@ class Admin::UsersController < ApplicationController
       redirect_to edit_admin_user_path(@user), flash: {error_messages: @user.errors.full_messages}
     end
   end
+  
+
+  def  add
+    @user = User.find(params[:id])
+    @user.update(admin: true)
+    redirect_to admin_users_path
+  end
+
+  def remove 
+      @user = User.find(params[:id])
+      @user.update(admin: false)
+      redirect_to admin_users_path
+  end
 
   private 
 
