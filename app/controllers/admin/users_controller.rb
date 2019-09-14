@@ -82,7 +82,7 @@ class Admin::UsersController < ApplicationController
 
   def only_admin_user 
     unless  current_user.admin? 
-        redirect_to forbidden_path(current_user),notice: "管理者のみアクセスできます"
+        redirect_to forbidden_path,notice: "管理者のみアクセスできます"
     end
   end
 end
