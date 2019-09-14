@@ -53,8 +53,9 @@ class Admin::UsersController < ApplicationController
 
   def remove 
       @user = User.find(params[:id])
-      @user.update(admin: false)
-      redirect_to admin_users_path
+      if @user.update(admin: false)
+         redirect_to admin_users_path
+      end
   end
 
   private 
