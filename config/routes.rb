@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   resources :tasks, except: :index
   namespace :admin do  
     resources :users
+    patch "remove/:id" ,to: "users#remove" , as: "remove"
+    patch "add/:id" ,to: "users#add" , as: "add"
   end
 end
