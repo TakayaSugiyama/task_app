@@ -1,3 +1,4 @@
+<% unless current_user == user %>
 <div id ="admin_<%= user.id %>">
   <% if user.admin? %>
     <%= form_with(model:[:admin, user], url: admin_remove_path(user))  do |f| %>
@@ -9,3 +10,6 @@
     <% end %>
   <% end %>
 </div>
+<% else %>
+     <p>あり</p>
+<% end %>
