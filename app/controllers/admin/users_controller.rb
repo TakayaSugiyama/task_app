@@ -6,6 +6,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i(show destroy edit update)
   before_action :only_mypage_user, only: [:show]
   skip_before_action :only_mypage_user, if: proc { params[:admin] }
+  before_action :delete_my_self, only: %i(destroy)
   
 
   def new
@@ -83,6 +84,12 @@ class Admin::UsersController < ApplicationController
   def only_admin_user 
     unless  current_user.admin? 
         redirect_to forbidden_path,notice: "管理者のみアクセスできます"
+    end
+  end
+
+  def delete_my_self 
+    if @user == current_user 
+      redirect_to root_url, notice: "自分自身は削除できません。"
     end
   end
 end
