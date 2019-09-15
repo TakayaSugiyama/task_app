@@ -1,28 +1,24 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  %i(show update edit destroy)
   before_action :only_my_task, only: %i(show update edit destroy)
-  before_action :forbit_not_login_user, only: %i(show)
+  before_action :forbit_not_login_user, only: %i(show index)
 
   def index
-    if current_user 
-      if params[:user] && current_user.admin?
-        @user = User.find(params[:user])
-      else 
-        @user = current_user
-      end
-      
-      @tasks = @user.tasks.order(created_at: :desc).page(params[:page])
-      @q = Task.ransack
-      if params[:sort]
-        @tasks = @user.tasks.order(:deadline).page(params[:page])
-      elsif params[:priority]
-        @tasks = @user.tasks.order(:priority).page(params[:page])
-      elsif params[:q]
-        @q = @user.tasks.ransack(params[:q])
-        @tasks = @q.result(distinct: true).page(params[:page])
-      end 
-    else  
-      redirect_to login_path, notice: "ログインしてください"
+    if params[:user] && current_user.admin?
+      @user = User.find(params[:user])
+    else 
+      @user = current_user
+    end
+    
+    @tasks = @user.tasks.order(created_at: :desc).page(params[:page])
+    @q = Task.ransack
+    if params[:sort]
+      @tasks = @user.tasks.order(:deadline).page(params[:page])
+    elsif params[:priority]
+      @tasks = @user.tasks.order(:priority).page(params[:page])
+    elsif params[:q]
+      @q = @user.tasks.ransack(params[:q])
+      @tasks = @q.result(distinct: true).page(params[:page])
     end
   end
 
@@ -70,9 +66,7 @@ class TasksController < ApplicationController
   end
 
   def only_my_task 
-    if @task.user != current_user 
-      redirect_to root_url, notice: "権限がありません"
-    end
+      redirect_to root_url, notice: "権限がありません" if @task.user != current_user 
   end
   
 end

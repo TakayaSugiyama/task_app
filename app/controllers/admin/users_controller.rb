@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :forbit_not_login_user 
   before_action :only_admin_user
   before_action :set_user, only: %i(show destroy edit update remove add)
-  before_action :delete_my_self, only: %i(destroy, remove)
+  before_action :not_delete_my_self, only: %i(destroy, remove)
   
 
   def new
@@ -47,9 +47,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def remove 
-      if @user.update(admin: false)
-         redirect_to admin_users_path
-      end
+    redirect_to admin_users_path if @user.update(admin: false)
   end
   #リファクタリング対象 ここまで
 
@@ -64,15 +62,11 @@ class Admin::UsersController < ApplicationController
     end
 
     def only_admin_user 
-      unless  current_user.admin? 
-          redirect_to forbidden_path,notice: "管理者のみアクセスできます"
-      end
+      redirect_to forbidden_path,notice: "管理者のみアクセスできます" unless  current_user.admin? 
     end
 
-    def delete_my_self 
-      if @user == current_user 
-        redirect_to root_url, notice: "自分自身は削除できません。"
-      end
+    def not_delete_my_self  
+        redirect_to root_url, notice: "自分自身は削除できません。" if @user == current_user
     end
     
 end
