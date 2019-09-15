@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
   root "tasks#index"
+  resources :users, only: %i(new create show)
   resources :tasks, except: :index
   namespace :admin do  
     resources :users
