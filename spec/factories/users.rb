@@ -4,6 +4,6 @@ FactoryBot.define do
     name { "リラックマ" }
     email { "relaxbear@gmail.com" }
     password { "relaxbear" } 
-    admin {true}
+    admin {false}
   end
 end

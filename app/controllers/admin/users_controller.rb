@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :forbit_not_login_user
+  before_action :forbit_not_login_user 
   before_action :only_admin_user
   before_action :set_user, only: %i(show destroy edit update remove add)
   before_action :delete_my_self, only: %i(destroy, remove)
