@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     end
 
     def user_params 
-      params.require(:user).permit(:name,:password,:password_confirmation,:email)
+      params.require(:user).permit(:name,:password,:password_confirmation,:email,:admin)
     end
 
     def only_mypage_user 
@@ -41,5 +41,5 @@ class UsersController < ApplicationController
         redirect_to user_path(current_user),notice: "ログインしています。"
       end
     end
-    
+
 end

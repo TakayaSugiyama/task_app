@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
   private 
 
   def forbit_not_login_user 
-    unless logged_in? 
+    if  !logged_in? 
       redirect_to login_path, notice: "ログインしてください"
     end
   end
+
 end
