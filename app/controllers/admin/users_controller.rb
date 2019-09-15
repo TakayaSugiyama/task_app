@@ -1,11 +1,7 @@
 class Admin::UsersController < ApplicationController
-  before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
-  before_action :forbid_login_user, only: [:new]
-  before_action :only_admin_user, only: %i(index)
-  skip_before_action :forbid_login_user, if: proc { params[:admin] }
+  before_action :forbit_not_login_user
+  before_action :only_admin_user
   before_action :set_user, only: %i(show destroy edit update remove add)
-  before_action :only_mypage_user, only: [:show]
-  skip_before_action :only_mypage_user, if: proc { params[:admin] }
   before_action :delete_my_self, only: %i(destroy, remove)
   
 
@@ -25,8 +21,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save 
-      session[:user_id] = @user.id
-      redirect_to admin_user_path(@user),notice: "登録しました"
+      redirect_to admin_users_path,notice: "登録しました"
     else 
       flash.now[:error_messages] = @user.errors.full_messages
       render "admin/users/new"
@@ -45,7 +40,7 @@ class Admin::UsersController < ApplicationController
     end
   end
   
-
+  #リファクタリング対象
   def  add
     @user.update(admin: true)
     redirect_to admin_users_path
@@ -56,38 +51,28 @@ class Admin::UsersController < ApplicationController
          redirect_to admin_users_path
       end
   end
+  #リファクタリング対象 ここまで
 
   private 
 
-  def set_user 
-    @user = User.find(params[:id])
-  end
-
-  def user_params 
-    params.require(:user).permit(:name,:password,:password_confirmation,:email)
-  end
-
-  def only_mypage_user 
-    if  @user.id != current_user.id 
-      redirect_to admin_user_path(current_user),notice: "権限がありません"
+    def set_user 
+      @user = User.find(params[:id])
     end
-  end
 
-  def forbid_login_user 
-    if current_user
-      redirect_to admin_user_path(current_user),notice: "ログインしています。"
+    def user_params 
+      params.require(:user).permit(:name,:password,:password_confirmation,:email,:admin)
     end
-  end
 
-  def only_admin_user 
-    unless  current_user.admin? 
-        redirect_to forbidden_path,notice: "管理者のみアクセスできます"
+    def only_admin_user 
+      unless  current_user.admin? 
+          redirect_to forbidden_path,notice: "管理者のみアクセスできます"
+      end
     end
-  end
 
-  def delete_my_self 
-    if @user == current_user 
-      redirect_to root_url, notice: "自分自身は削除できません。"
+    def delete_my_self 
+      if @user == current_user 
+        redirect_to root_url, notice: "自分自身は削除できません。"
+      end
     end
-  end
+    
 end
