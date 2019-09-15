@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only:  %i(show update edit destroy)
   before_action :only_my_task, only: %i(show update edit destroy)
-  before_action :forbit_not_login_user, only: %i(show index)
+  before_action :forbit_not_login_user, only: %i(show index new)
 
   def index
     if params[:user] && current_user.admin?
@@ -25,7 +25,6 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new(flash[:task])
-    redirect_to login_path,notice: "ログインしてください" unless  current_user
   end
 
   def show ;end
