@@ -1,4 +1,6 @@
 <h1 class = "text-center">ユーザー管理画面</h1>
+<%= link_to "マイページ", admin_user_path(current_user), class: "btn btn-primary mb-3" %>
+<h4>現在ログインしているユーザー: <%= current_user.name %></h4>
 <%= form_with(local: true, method: :get, url: new_admin_user_path ) do |f| %>
    <%= f.hidden_field :admin , value: "true" %>
    <button class = "btn btn-info">ユーザーを新規作成する</button>
@@ -10,6 +12,7 @@
       <th>ユーザー名</th>
       <th>ユーザー詳細</th>
       <th>タスク数</th>
+      <th>管理者権限</th>
       <th>編集</th>
       <th>削除</th>
       <th>ユーザーのタスク一覧</th>
@@ -26,13 +29,20 @@
           <% end %>
       </td>
       <td><%= user.tasks.select(:id).count %>
+      <td>
+        <%= render "admin_field", user: user%>
+      </td>
       <td id = "edit<%= user.id %>">
          <%= link_to edit_admin_user_path(user) do %>
             <button class = "btn btn-primary">編集</button>
          <% end %>
       </td>
       <td id = "destory<%= user.id %>" >
-         <%= link_to "削除", admin_user_path(user), method: :delete, data: {confirm: "削除しますか?"} , class: "btn btn-danger" %>
+         <% if user != current_user %>
+            <%= link_to "削除", admin_user_path(user), method: :delete, data: {confirm: "削除しますか?"} , class: "btn btn-danger" %>
+         <% else %>
+            <p>削除不可</p>
+         <% end %>
       </td>
       <td>
          <%= form_with(local: true, method: :get, url: root_url) do  |f| %>

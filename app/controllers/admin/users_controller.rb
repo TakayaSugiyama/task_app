@@ -1,10 +1,12 @@
 class Admin::UsersController < ApplicationController
   before_action :forbit_not_login_user, only: [:show,:edit,:update,:destroy]
   before_action :forbid_login_user, only: [:new]
+  before_action :only_admin_user, only: %i(index)
   skip_before_action :forbid_login_user, if: proc { params[:admin] }
-  before_action :set_user, only: %i(show destroy edit update)
+  before_action :set_user, only: %i(show destroy edit update remove add)
   before_action :only_mypage_user, only: [:show]
   skip_before_action :only_mypage_user, if: proc { params[:admin] }
+  before_action :delete_my_self, only: %i(destroy, remove)
   
 
   def new
@@ -12,7 +14,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index 
-    @users = User.all.select(:id,:name)
+    @users = User.all.select(:id,:name,:admin).order(id: :asc)
   end
 
   def destroy 
@@ -42,6 +44,18 @@ class Admin::UsersController < ApplicationController
       redirect_to edit_admin_user_path(@user), flash: {error_messages: @user.errors.full_messages}
     end
   end
+  
+
+  def  add
+    @user.update(admin: true)
+    redirect_to admin_users_path
+  end
+
+  def remove 
+      if @user.update(admin: false)
+         redirect_to admin_users_path
+      end
+  end
 
   private 
 
@@ -62,6 +76,18 @@ class Admin::UsersController < ApplicationController
   def forbid_login_user 
     if current_user
       redirect_to admin_user_path(current_user),notice: "ログインしています。"
+    end
+  end
+
+  def only_admin_user 
+    unless  current_user.admin? 
+        redirect_to forbidden_path,notice: "管理者のみアクセスできます"
+    end
+  end
+
+  def delete_my_self 
+    if @user == current_user 
+      redirect_to root_url, notice: "自分自身は削除できません。"
     end
   end
 end
