@@ -18,7 +18,7 @@ class TasksController < ApplicationController
       @tasks = @user.tasks.order(:priority).page(params[:page])
     elsif params[:q]
       @q = @user.tasks.ransack(params[:q])
-      @tasks = @q.result(distinct: true).page(params[:page])
+      @tasks = @q.result(distinct: true).includes(:labels, :label_relations).page(params[:page])
     end
   end
 
