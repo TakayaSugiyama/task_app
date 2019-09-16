@@ -54,7 +54,15 @@
 | カラム | データ型 |
 |:----:|:-----:|
 |id|integer|
-| label_name | string |
-| task_id |references |
+| name | string |
+|created_at| timestamps|
+|updated_at| timestamps| 
+
+### label_relations テーブル  label_relation_model
+| カラム | データ型 |
+|:----:|:-----:|
+|id|integer|
+| label_id | integer |
+| task_id | integer |
 |created_at| timestamps|
 |updated_at| timestamps| 
