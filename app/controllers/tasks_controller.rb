@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show,:edit,:update,:destroy] 
-  before_action :forbit_not_login_user
-  before_action :only_my_task, only: [:show,:update,:edit,:destroy]
+  before_action :set_task, only:  %i(show update edit destroy)
+  before_action :only_my_task, only: %i(show update edit destroy)
+  before_action :forbit_not_login_user, only: %i(show index new)
 
   def index
-    if params[:user]
+    if params[:user] && current_user.admin?
       @user = User.find(params[:user])
     else 
       @user = current_user
@@ -21,6 +21,7 @@ class TasksController < ApplicationController
       @tasks = @q.result(distinct: true).page(params[:page])
     end
   end
+
 
   def new
     @task = Task.new(flash[:task])
@@ -64,9 +65,7 @@ class TasksController < ApplicationController
   end
 
   def only_my_task 
-    if @task.user != current_user 
-      redirect_to root_url, notice: "権限がありません"
-    end
+      redirect_to root_url, notice: "権限がありません" if @task.user != current_user 
   end
   
 end

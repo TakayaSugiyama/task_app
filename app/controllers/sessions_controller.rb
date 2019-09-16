@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to admin_user_path(@user), notice: "ログインしました"
+      redirect_to  user_path(@user), notice: "ログインしました"
     else 
       redirect_to login_path, notice: "ログインに失敗しました"
     end
