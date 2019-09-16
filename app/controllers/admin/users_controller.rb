@@ -42,8 +42,7 @@ class Admin::UsersController < ApplicationController
   
   #リファクタリング対象
   def  add
-    @user.update(admin: true)
-    redirect_to admin_users_path
+    redirect_to admin_users_path if @user.update(admin: true)
   end
 
   def remove 
