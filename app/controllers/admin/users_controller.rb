@@ -61,7 +61,7 @@ class Admin::UsersController < ApplicationController
     end
 
     def only_admin_user 
-      redirect_to forbidden_path,notice: "管理者のみアクセスできます" unless  current_user.admin? 
+      raise ActionController::RoutingError, "管理者以外がアクセスしようとするとエラー" if  !current_user.admin?
     end
 
     def not_delete_my_self  
