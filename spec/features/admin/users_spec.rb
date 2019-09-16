@@ -53,7 +53,7 @@ RSpec.feature "Admin::Users", type: :feature do
 
     #作成 
     it "ユーザーを新規作成する" do 
-      click_button "ユーザーを新規作成する"
+      click_link "ユーザーを新規作成する"
       fill_in "ユーザー名" , with: "コリラックマ"
       fill_in "メールアドレス", with: "yellow@gmail.com"
       fill_in "パスワード", with: "yellowbird"
