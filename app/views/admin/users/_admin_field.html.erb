@@ -1,15 +1,15 @@
 <% unless current_user == user %>
-<div id ="admin_<%= user.id %>">
-  <% if user.admin? %>
-    <%= form_with(model:[:admin, user], url: admin_remove_path(user))  do |f| %>
-      <%= f.submit  "あり" %>
+  <div id ="admin_<%= user.id %>">
+    <% if user.admin? %>
+      <%= form_with(model:[:admin, user], url: admin_remove_path(user))  do |f| %>
+        <%= f.submit  "あり" %>
+      <% end %>
+    <% else %>
+      <%= form_with(model:[:admin, user], url: admin_add_path(user))  do |f| %>
+        <%= f.submit  "なし" %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= form_with(model:[:admin, user], url: admin_add_path(user))  do |f| %>
-      <%= f.submit  "なし" %>
-    <% end %>
-  <% end %>
-</div>
+  </div>
 <% else %>
      <p>あり</p>
 <% end %>
