@@ -75,16 +75,34 @@ RSpec.feature "Tasks", type: :feature do
       end
 
       #タスク検索のテスト 
-      scenario "一覧画面でタイトルを「test_task」、進捗を未着手とすると検索結果が表示されるかのテスト" do
-        task1 = FactoryBot.create(:task)
-        task2 = FactoryBot.create(:task,title: "test_task2")
-        task3 = FactoryBot.create(:task,title: "test_task3")
-        visit root_path 
-        fill_in "タスク名", with: "test_task3"
-        select "未着手", from: "q_condition_eq"
-        click_button "検索"
-        tasks = page.all(".task_title")
-        expect(tasks[0].text).to have_content "test_task3"
+      describe  "タスク検索のテスト" do
+        before do
+          task1 = FactoryBot.create(:task,id:1)
+          task2 = FactoryBot.create(:task,title: "test_task2",id: 2)
+          task3 = FactoryBot.create(:task,title: "test_task3",id: 3)
+        end
+
+        it "test_task3が表示される" do
+          visit root_path
+          fill_in "タスク名", with: "test_task3"
+          select "未着手", from: "q_condition_eq"
+          click_button "検索"
+          tasks = page.all(".task_title")
+          expect(tasks[0].text).to have_content "test_task3"
+        end  
+        
+        # ラベルを含めた検索
+        it "test_task2が表示される" do 
+          5.times {FactoryBot.create(:label)}
+          LabelRelation.create(task_id:2, label_id:3)
+          visit root_path 
+          fill_in "タスク名", with: "test_task"
+          select "未着手", from: "q_condition_eq"
+          check "q_labels_id_eq_any_3"
+          click_on "検索"
+          tasks = page.all(".task_title")
+          expect(tasks[0].text).to have_content "test_task2"
+        end
       end
   end
 end
