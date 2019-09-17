@@ -18,7 +18,7 @@ class TasksController < ApplicationController
       @tasks = @user.tasks.order(:priority).page(params[:page])
     elsif params[:q]
       @q = @user.tasks.ransack(params[:q])
-      @tasks = @q.result(distinct: true).page(params[:page])
+      @tasks = @q.result(distinct: true).includes(:labels, :label_relations).page(params[:page])
     end
   end
 
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
   end
 
   def task_params 
-    params.require(:task).permit(:title,:content,:deadline,:priority,:condition)
+    params.require(:task).permit(:title,:content,:deadline,:priority,:condition,label_ids: [])
   end
 
   def only_my_task 

@@ -13,6 +13,11 @@
       <%= f.search_field :title_cont %><br/>
       <%= f.label :condition_eq, "進捗" %><br/>
       <%= f.select :condition_eq, Task.conditions.map { |k,v| [Task.conditions_i18n[k], v] } %><br/>
+      <%= f.label :labels_id_eq_any , "ラベル" %><br/>
+      <% Label.all.each do |label|%>
+        <%= f.check_box :labels_id_eq_any, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false} , label[:id]%>
+        <label><%= label.name %></label>
+      <% end %>
       <%= f.hidden_field :search, value: 'true' %>
       <div class = "mt-2 mb-3">
          <%= f.submit class: "btn btn-primary"%>

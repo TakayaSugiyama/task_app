@@ -10,5 +10,11 @@
   <p><%= Task.priorities_i18n[@task.priority] %></p>
   <h3>進捗</h3>
   <p><%= Task.conditions_i18n[@task.condition] %></p>
-  <%= link_to "一覧へ", root_path %>
+  <h3>ラベル</h3>
+  <% @task.labels.each do |label| %>
+    <span class = "badge badge-primary"><%= label.name %></span>
+  <%end %>
+  <div class = "mt-4">
+    <%= link_to "一覧へ", root_path %>
+  </div>
 </div>
